@@ -2,5 +2,9 @@
   "port": 8080,
   "slack": {
     "token": "xoxp-28376995075-28429898197-31423073189-76db5a2942"
+  },
+  "twilio": {
+    "sid": "AC20a486fbba6bee1b8a36da202e525b3b",
+    "token": "4defa9b8ce57b92b50eea50e27f6e844"
   }
 }
