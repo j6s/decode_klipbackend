@@ -3,9 +3,11 @@ var settings = require('../settings.json');
 var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
+var rateLimit = require('./lib/rateLimit');
 
 var app = express();
 app.use(bodyParser.json());
+app.use(rateLimit());
 
 // Setup the server
 app.set('port', (process.env.PORT || settings.port));
