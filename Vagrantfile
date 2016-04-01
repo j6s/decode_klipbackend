@@ -65,12 +65,9 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   sudo apt-get update
-  #   sudo apt-get install -y apache2
-  # SHELL
-	config.vm.provision "ansible" do |ansible|
-		ansible.sudo = true;
-		ansible.playbook = "./config/vagrant.yml"
-	end
+   config.vm.provision "shell", inline: <<-SHELL
+     [ -f /etc/apt/sources.list.d/nodesource.list ] || curl --silent --location https://deb.nodesource.com/setup_5.x | bash -
+     sudo apt-get update
+     sudo apt-get -y install nodejs
+  SHELL
 end
