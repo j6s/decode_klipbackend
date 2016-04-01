@@ -2,8 +2,10 @@ var express = require('express');
 var settings = require('../settings.json');
 var fs = require('fs');
 var path = require('path');
+var bodyParser = require('body-parser');
 
 var app = express();
+app.use(bodyParser.json());
 
 // Setup the server
 app.set('port', (process.env.PORT || settings.port));

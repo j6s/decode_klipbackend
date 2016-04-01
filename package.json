@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/j6s/decode_klipbackend#readme",
   "dependencies": {
-    "express": "^4.13.4"
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "request": "^2.69.0"
   },
   "engines": {
     "node": "0.12.7"
