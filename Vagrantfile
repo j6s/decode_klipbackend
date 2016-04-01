@@ -68,6 +68,6 @@ Vagrant.configure(2) do |config|
    config.vm.provision "shell", inline: <<-SHELL
      [ -f /etc/apt/sources.list.d/nodesource.list ] || curl --silent --location https://deb.nodesource.com/setup_5.x | bash -
      sudo apt-get update
-     sudo apt-get -y install nodejs
+     sudo apt-get -y install nodejs vim
   SHELL
 end
