@@ -16,6 +16,26 @@ app.listen(app.get('port'), function() {
     console.log('Notifier app is running on port', app.get('port'));
 });
 
+
+var generalSchema = {
+    type: 'object',
+    properties: {
+        message: {
+            type: 'object',
+            properties: {
+                title: { type: 'string' },
+                body: { type: 'string' }
+            },
+            required: ['title', 'body']
+        },
+        config: {
+            type: 'object',
+            properties: {}
+        },
+        required: ['message', 'config']
+    }
+};
+
 /**
  * v1 module setup:
  * - initializes all files from the v1 folder and applies them to routes based on their filename
@@ -28,11 +48,22 @@ var v1 = path.join(__dirname, 'v1');
 var v1Routes = [];
 fs.readdirSync(v1).forEach(function(file) {
     var route = '/v1/' + file.replace('.js', '');
-    v1Routes.push(route);
 
-    console.log('mounting', file, 'to', route);
-    var router = require(path.join(v1,file));
-    app.use(route, router(settings));
+    var service = require(path.join(v1,file));
+    if (typeof service === 'object') {
+        console.log('mounting', file, 'to', route);
+        var routeInfo = {
+            endpoint: route,
+            name: service.name,
+            schema: service.schema(JSON.parse(JSON.stringify(generalSchema)))
+        };
+        v1Routes.push(routeInfo);
+
+        app.get(route, function(req, ret) {
+            ret.send(routeInfo);
+        });
+        app.use(route, service.setup(settings))
+    }
 });
 
 /**

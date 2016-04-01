@@ -15,37 +15,44 @@ var querystring = require('querystring');
  * @param settings
  * @returns {*}
  */
-module.exports = function(settings) {
+module.exports = {
+    name: 'Slack',
+    setup: function(settings) {
 
-    var router = express.Router();
+        var router = express.Router();
 
-    router.post('/', function(req, res) {
-        sanitizer(req.body).then(function() {
+        router.post('/', function(req, res) {
+            sanitizer(req.body).then(function() {
 
-            var params = [
-                'token=' +      querystring.escape(settings.slack.token),
-                'channel=' +    querystring.escape(req.body.config.channel || '#alertsonfire'),
-                'text=' +       querystring.escape(req.body.message.body),
-                'as_user=false',
-                'username=' +    querystring.escape(req.body.message.title)
-            ].join('&');
+                var params = [
+                    'token=' +      querystring.escape(settings.slack.token),
+                    'channel=' +    querystring.escape(req.body.config.channel || '#alertsonfire'),
+                    'text=' +       querystring.escape(req.body.message.body),
+                    'as_user=false',
+                    'username=' +    querystring.escape(req.body.message.title)
+                ].join('&');
 
-            request({
-                method: 'GET',
-                uri: 'https://slack.com/api/chat.postMessage?' + params
-            }, function(err, response, body) {
-                if (err || response.statusCode !== 200) {
-                    res.status(500).send("request failed " + err);
-                    return;
-                }
+                request({
+                    method: 'GET',
+                    uri: 'https://slack.com/api/chat.postMessage?' + params
+                }, function(err, response, body) {
+                    if (err || response.statusCode !== 200) {
+                        res.status(500).send("request failed " + err);
+                        return;
+                    }
 
-                res.send("all done");
-            })
+                    res.send("all done");
+                })
 
-        }, function(err) {
-            ret.status(500).send(err);
+            }, function(err) {
+                ret.status(500).send(err);
+            });
         });
-    });
 
-    return router;
-};
+        return router;
+    },
+    schema: function(schema) {
+        schema.properties.config.properties.channel = { type: 'string' };
+        return schema;
+    }
+}
