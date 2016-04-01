@@ -25,8 +25,8 @@ module.exports = function() {
             method: 'GET',
             uri: url
         }, function(error, response, body) {
-            if (error && response.code !== 200) {
-                res.send(500).send("error while requesting: " + error);
+            if (error || response.statusCode !== 200) {
+                ret.status(500).send("error while requesting: " + error);
                 return;
             }
 
