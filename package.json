@@ -1,0 +1,22 @@
+{
+  "name": "klip",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j6s/decode_klipbackend.git"
+  },
+  "author": "",
+  "license": "SEE LICENSE IN LICENSE file",
+  "bugs": {
+    "url": "https://github.com/j6s/decode_klipbackend/issues"
+  },
+  "homepage": "https://github.com/j6s/decode_klipbackend#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
