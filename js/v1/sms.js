@@ -11,7 +11,7 @@ module.exports = {
     name: 'SMS',
     setup: function(settings, sanitizer) {
         var router = express.Router();
-        var client = twilio(settings.twilio.sid, settings.twilio.token);
+        var client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
         router.post('/', function(req, ret) {
             sanitizer(req.body).then(function() {

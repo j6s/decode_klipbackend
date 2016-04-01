@@ -23,7 +23,7 @@ module.exports = {
             sanitizer(req.body).then(function() {
 
                 var params = [
-                    'token=' +      querystring.escape(settings.slack.token),
+                    'token=' +      querystring.escape(process.env.SLACK),
                     'channel=' +    querystring.escape(req.body.config.channel || '#alertsonfire'),
                     'text=' +       querystring.escape(req.body.message.body),
                     'as_user=false',
