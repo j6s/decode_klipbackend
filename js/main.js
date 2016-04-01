@@ -5,6 +5,13 @@ var path = require('path');
 
 var app = express();
 
+// Setup the server
+app.set('port', (process.env.PORT || settings.port));
+
+app.listen(app.get('port'), function() {
+    console.log('Notifier app is running on port', app.get('port'));
+});
+
 /**
  * v1 module setup:
  * - initializes all files from the v1 folder and applies them to routes based on their filename
@@ -37,5 +44,3 @@ app.get('/v1', function(req, ret) {
 app.get('/', function(req, ret) {
     ret.send(JSON.stringify(['/v1']));
 });
-
-app.listen(settings.port);
