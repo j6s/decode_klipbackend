@@ -4,7 +4,6 @@
 
 var express = require('express');
 var request = require('request');
-var sanitizer = require('../lib/sanitizer');
 var querystring = require('querystring');
 
 /**
@@ -17,8 +16,7 @@ var querystring = require('querystring');
  */
 module.exports = {
     name: 'Slack',
-    setup: function(settings) {
-
+    setup: function(settings, sanitizer) {
         var router = express.Router();
 
         router.post('/', function(req, res) {
@@ -45,7 +43,8 @@ module.exports = {
                 })
 
             }, function(err) {
-                ret.status(500).send(err);
+                console.log(err);
+                res.status(500).send(err);
             });
         });
 

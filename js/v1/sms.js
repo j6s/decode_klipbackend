@@ -1,7 +1,6 @@
 
 var express = require('express');
 var twilio = require('twilio');
-var sanitize = require('../lib/sanitizer');
 
 /**
  * Send a sms to a given number
@@ -10,12 +9,12 @@ var sanitize = require('../lib/sanitizer');
  */
 module.exports = {
     name: 'SMS',
-    setup: function(settings) {
+    setup: function(settings, sanitizer) {
         var router = express.Router();
         var client = twilio(settings.twilio.sid, settings.twilio.token);
 
         router.post('/', function(req, ret) {
-            sanitize(req.body).then(function() {
+            sanitizer(req.body).then(function() {
 
                 if (!req.body.config.number) {
                     ret.send(400).send('config.number  not specified');
@@ -45,6 +44,6 @@ module.exports = {
     schema: function(schema) {
         schema.properties.config.properties.number = { type: 'string' };
         schema.properties.config.required = ['number'];
-        return schema; 
+        return schema;
     }
 }

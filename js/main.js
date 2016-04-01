@@ -4,6 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
 var rateLimit = require('./lib/rateLimit');
+var sanitizer = require('./lib/sanitizer');
 
 var app = express();
 app.use(bodyParser.json());
@@ -62,7 +63,7 @@ fs.readdirSync(v1).forEach(function(file) {
         app.get(route, function(req, ret) {
             ret.send(routeInfo);
         });
-        app.use(route, service.setup(settings))
+        app.use(route, service.setup(settings, sanitizer(routeInfo.schema)))
     }
 });
 
