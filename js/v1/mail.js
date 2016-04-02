@@ -2,10 +2,6 @@
 const express = require('express');
 const mailgun = require('mailgun').Mailgun;
 
-if (!process.env.MAILGUN) {
-  throw "MAILGUN environment variable is not set"
-}
-
 
 /**
  * simple module that sends an email
@@ -14,6 +10,9 @@ if (!process.env.MAILGUN) {
 module.exports = {
     name: 'E-Mail',
     setup: function(settings, sanitizer) {
+        if (!process.env.MAILGUN) {
+          throw "MAILGUN environment variable is not set"
+        }
         const mg = new mailgun(process.env.MAILGUN);
         var router = express.Router();
 

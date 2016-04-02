@@ -6,10 +6,6 @@ var express = require('express');
 var request = require('request');
 var querystring = require('querystring');
 
-if (!process.env.SLACK) {
-  throw "SLACK environment variable is not set"
-}
-
 /**
  * Sends a message to slack
  *
@@ -21,6 +17,10 @@ if (!process.env.SLACK) {
 module.exports = {
     name: 'Slack',
     setup: function(settings, sanitizer) {
+      if (!process.env.SLACK) {
+        throw "SLACK environment variable is not set"
+      }
+      
         var router = express.Router();
 
         router.post('/', function(req, res) {

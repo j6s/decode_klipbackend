@@ -10,6 +10,13 @@ var twilio = require('twilio');
 module.exports = {
     name: 'SMS',
     setup: function(settings, sanitizer) {
+        if (!process.env.TWILIO_TOKEN) {
+          throw "TWILIO_TOKEN environment variable is not set"
+        }
+        if (!process.env.TWILIO_SID) {
+          throw "TWILIO_SID environment variable is not set"
+        }
+
         var router = express.Router();
         var client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
