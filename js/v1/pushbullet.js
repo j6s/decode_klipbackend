@@ -1,6 +1,10 @@
 var express = require('express');
 var request = require('request');
 
+if (!process.env.PUSHBULLET) {
+  throw "PUSHBULLET environment variable is not set"
+}
+
 module.exports = {
   name: 'Pushbullet',
   setup: function(settings, sanitizer) {

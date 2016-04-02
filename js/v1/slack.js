@@ -6,6 +6,10 @@ var express = require('express');
 var request = require('request');
 var querystring = require('querystring');
 
+if (!process.env.SLACK) {
+  throw "SLACK environment variable is not set"
+}
+
 /**
  * Sends a message to slack
  *

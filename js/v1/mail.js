@@ -1,7 +1,11 @@
 'use-strict'
 const express = require('express');
 const mailgun = require('mailgun').Mailgun;
-const mg = new mailgun(process.env.MAILGUN);
+
+if (!process.env.MAILGUN) {
+  throw "MAILGUN environment variable is not set"
+}
+
 
 /**
  * simple module that sends an email
@@ -10,6 +14,7 @@ const mg = new mailgun(process.env.MAILGUN);
 module.exports = {
     name: 'E-Mail',
     setup: function(settings, sanitizer) {
+        const mg = new mailgun(process.env.MAILGUN);
         var router = express.Router();
 
         router.post('/', function(req, ret) {
