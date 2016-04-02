@@ -48,7 +48,15 @@ module.exports = {
         return router;
     },
     schema: function(schema) {
-        schema.properties.config.properties.email = { type: 'string' };
+        schema.properties.config.properties.email = {
+            type: 'array',
+            items: {
+                type: 'string',
+                pattern: "^\\S+@\\S+$"
+            },
+            minItems: 1,
+            uniqueItems: true
+        };
         schema.properties.config.required = [ 'email' ];
         return schema;
     }
