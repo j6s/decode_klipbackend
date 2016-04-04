@@ -1,5 +1,15 @@
 # deCODE klipfolio notification service
 
+Project Summary:
+Data Monitoring &
+Notification Services
+
+1.Users define rules and data sources 
+2.System monitors the data sources
+3.When the rules are met users are notified
+
+<img src="services.png"/>
+
 
 ## Plugin base
 
