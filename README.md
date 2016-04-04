@@ -8,7 +8,7 @@ Notification Services
 2.System monitors the data sources
 3.When the rules are met users are notified
 
-<img src="services.png"/>
+<img src="Services.png"/>
 
 
 ## Plugin base
